@@ -114,11 +114,12 @@ export default function ProductsSection({ products }: { products: any[] }) {
   // Helper to format WooCommerce Store API price data securely
   const formatPrice = (prices: any) => {
     if (!prices) return "";
+    const symbol = prices.currency_symbol || "د.إ";
     const priceString = prices.price || "0";
     const minorUnit =
       prices.currency_minor_unit !== undefined ? prices.currency_minor_unit : 2;
     const value = parseInt(priceString, 10) / Math.pow(10, minorUnit);
-    return `${prices.currency_symbol || "$"} ${value.toFixed(2)}`;
+    return `${value.toFixed(2)}${symbol}`;
   };
 
   const ProductCard = ({ product, index }: { product: any; index: number }) => {
@@ -163,73 +164,75 @@ export default function ProductsSection({ products }: { products: any[] }) {
         style={{ perspective: 1200 }}
         className="h-full"
       >
-        <motion.div
-          onMouseMove={handleMouseMove}
-          onMouseLeave={handleMouseLeave}
-          style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-          className="bg-white border border-shizora-gold/10 group flex flex-col h-full relative shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_40px_-15px_rgba(203,168,99,0.25)] hover:border-shizora-gold/30 transition-all duration-500 rounded-sm overflow-hidden"
-        >
-          {/* Glare effect */}
+        <Link href={`/collections/${product.id}`} className="block h-full">
           <motion.div
-            className="absolute inset-0 pointer-events-none z-20 bg-linear-to-b from-white/60 to-transparent mix-blend-overlay"
-            style={{ opacity: glareOpacity, translateY: glareY }}
-          />
-
-          <div
-            className="relative aspect-square md:aspect-[4/3] overflow-hidden bg-white"
-            style={{ transform: "translateZ(30px)" }}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+            className="bg-white border border-shizora-gold/10 group flex flex-col h-full relative shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_40px_-15px_rgba(203,168,99,0.25)] hover:border-shizora-gold/30 transition-all duration-500 rounded-sm overflow-hidden"
           >
-            {/* Inner Gold Frame */}
-            <div className="absolute inset-3 border border-white/30 group-hover:border-shizora-gold/40 z-10 transition-colors duration-700 pointer-events-none rounded-sm" />
-
-            {product.images && product.images.length > 0 ? (
-              <img
-                src={product.images[0].src}
-                alt={product.name}
-                className="object-cover w-full h-full transition-transform duration-1000 group-hover:scale-110"
-              />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center text-shizora-dark/20 font-heading">
-                No Image
-              </div>
-            )}
-
-            {/* Subtle Vignette */}
-            <div className="absolute inset-0 bg-radial-gradient from-transparent to-black/10 pointer-events-none mix-blend-multiply" />
-
-            {index === 0 && (
-              <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-3 py-1 text-[8px] uppercase tracking-widest text-shizora-gold font-semibold z-10 shadow-sm">
-                New
-              </div>
-            )}
-            {index === 1 && (
-              <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-3 py-1 text-[8px] uppercase tracking-widest text-shizora-gold font-semibold z-10 shadow-sm">
-                Best Seller
-              </div>
-            )}
-          </div>
-
-          <div
-            className="p-6 flex flex-col grow bg-[#fcfbf9]"
-            style={{ transform: "translateZ(20px)" }}
-          >
-            <h3
-              className="font-heading text-lg text-shizora-dark mb-2 group-hover:text-shizora-gold transition-colors duration-300 line-clamp-1"
-              dangerouslySetInnerHTML={{ __html: product.name }}
+            {/* Glare effect */}
+            <motion.div
+              className="absolute inset-0 pointer-events-none z-20 bg-linear-to-b from-white/60 to-transparent mix-blend-overlay"
+              style={{ opacity: glareOpacity, translateY: glareY }}
             />
 
-            <p className="text-xs text-shizora-gold/80 mb-6 font-medium tracking-wide">
-              {formatPrice(product.prices)}
-            </p>
+            <div
+              className="relative aspect-square md:aspect-[4/3] overflow-hidden bg-white"
+              style={{ transform: "translateZ(30px)" }}
+            >
+              {/* Inner Gold Frame */}
+              <div className="absolute inset-3 border border-white/30 group-hover:border-shizora-gold/40 z-10 transition-colors duration-700 pointer-events-none rounded-sm" />
 
-            <button className="w-full mt-auto py-3 border border-shizora-gold/30 text-[9px] uppercase tracking-[0.2em] text-shizora-dark font-medium group-hover:bg-shizora-gold group-hover:border-shizora-gold group-hover:text-white transition-all duration-500 relative overflow-hidden flex items-center justify-center">
-              <span className="relative z-10 flex items-center gap-2">
-                ADD TO BAG
-              </span>
-              <div className="absolute inset-0 w-0 bg-shizora-gold transition-all duration-500 ease-out group-hover:w-full z-0" />
-            </button>
-          </div>
-        </motion.div>
+              {product.images && product.images.length > 0 ? (
+                <img
+                  src={product.images[0].src}
+                  alt={product.name}
+                  className="object-cover w-full h-full transition-transform duration-1000 group-hover:scale-110"
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center text-shizora-dark/20 font-heading">
+                  No Image
+                </div>
+              )}
+
+              {/* Subtle Vignette */}
+              <div className="absolute inset-0 bg-radial-gradient from-transparent to-black/10 pointer-events-none mix-blend-multiply" />
+
+              {index === 0 && (
+                <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-3 py-1 text-[8px] uppercase tracking-widest text-shizora-gold font-semibold z-10 shadow-sm">
+                  New
+                </div>
+              )}
+              {index === 1 && (
+                <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-3 py-1 text-[8px] uppercase tracking-widest text-shizora-gold font-semibold z-10 shadow-sm">
+                  Best Seller
+                </div>
+              )}
+            </div>
+
+            <div
+              className="p-6 flex flex-col grow bg-[#fcfbf9]"
+              style={{ transform: "translateZ(20px)" }}
+            >
+              <h3
+                className="font-heading text-lg text-shizora-dark mb-2 group-hover:text-shizora-gold transition-colors duration-300 line-clamp-1"
+                dangerouslySetInnerHTML={{ __html: product.name }}
+              />
+
+              <p className="text-xs text-shizora-gold/80 mb-6 font-medium tracking-wide">
+                {formatPrice(product.prices)}
+              </p>
+
+              <div className="w-full mt-auto py-3 border border-shizora-gold/30 text-[9px] uppercase tracking-[0.2em] text-shizora-dark font-medium group-hover:bg-shizora-gold group-hover:border-shizora-gold group-hover:text-white transition-all duration-500 relative overflow-hidden flex items-center justify-center">
+                <span className="relative z-10 flex items-center gap-2">
+                  VIEW DETAILS
+                </span>
+                <div className="absolute inset-0 w-0 bg-shizora-gold transition-all duration-500 ease-out group-hover:w-full z-0" />
+              </div>
+            </div>
+          </motion.div>
+        </Link>
       </motion.div>
     );
   };

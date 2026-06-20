@@ -3,6 +3,8 @@ import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/layout/Footer";
 import { getHomePageData } from "@/lib/data";
+import { CartProvider } from "@/lib/cart-context";
+import CartSidebar from "@/components/shop/CartSidebar";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -37,8 +39,11 @@ export default async function RootLayout({
         suppressHydrationWarning
         className="min-h-full flex flex-col font-sans bg-black text-white"
       >
-        {children}
-        <Footer data={data.acf} />
+        <CartProvider>
+          {children}
+          <Footer data={data.acf} />
+          <CartSidebar />
+        </CartProvider>
       </body>
     </html>
   );

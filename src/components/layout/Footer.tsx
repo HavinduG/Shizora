@@ -62,31 +62,37 @@ export default function Footer({ data }: { data: any }) {
   // Helper function to render the correct social icon
   const renderSocialIcon = (alt: string) => {
     // Removed hover:text-shizora-gold to keep icons looking static/minimal
-    const iconClass = "w-4 h-4 text-[#e8ded0]/60 transition-colors duration-300";
+    const iconClass =
+      "w-4 h-4 text-[#e8ded0]/60 transition-colors duration-300";
     switch (alt?.toLowerCase()) {
-      case "instagram": return <InstagramIcon className={iconClass} />;
-      case "facebook": return <FacebookIcon className={iconClass} />;
-      case "twitter": return <TwitterIcon className={iconClass} />;
-      default: return <span className="text-[10px]">{alt}</span>;
+      case "instagram":
+        return <InstagramIcon className={iconClass} />;
+      case "facebook":
+        return <FacebookIcon className={iconClass} />;
+      case "twitter":
+        return <TwitterIcon className={iconClass} />;
+      default:
+        return <span className="text-[10px]">{alt}</span>;
     }
   };
 
   return (
     <footer className="bg-[#24211a] text-[#e8ded0] pt-16 pb-6 px-6 lg:px-12 w-full border-t border-shizora-gold/10">
       <div className="container mx-auto max-w-[1400px]">
-        
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-16">
-          
           {/* Brand & Contact Column (Spans 4 cols) */}
           <div className="lg:col-span-4 flex flex-col gap-8">
             {/* Logo */}
-            <Link href="/" className="font-heading text-2xl tracking-[0.3em] text-[#e8ded0] hover:text-shizora-gold transition-colors duration-300 w-fit">
+            <Link
+              href="/"
+              className="font-heading text-2xl tracking-[0.3em] text-[#e8ded0] hover:text-shizora-gold transition-colors duration-300 w-fit"
+            >
               SHIZORA
             </Link>
 
             {/* Description */}
-            <div 
+            <div
               className="text-xs text-[#e8ded0]/60 font-sans tracking-wide leading-relaxed max-w-xs"
               dangerouslySetInnerHTML={{ __html: description }}
             />
@@ -94,12 +100,22 @@ export default function Footer({ data }: { data: any }) {
             {/* Shop Details / Contact Info */}
             <div className="flex flex-col gap-3 mt-2">
               {shopDetails.map((detail: any, index: number) => (
-                <div key={index} className="flex items-center gap-3 text-[#e8ded0]/70 group">
+                <div
+                  key={index}
+                  className="flex items-center gap-3 text-[#e8ded0]/70 group"
+                >
                   {/* Icon */}
-                  {detail.shop_detail_name?.toLowerCase() === 'address' && <MapPin size={14} className="text-shizora-gold/70" />}
-                  {detail.shop_detail_name?.toLowerCase() === 'phone number' && <Phone size={14} className="text-shizora-gold/70" />}
-                  {detail.shop_detail_name?.toLowerCase() === 'mail' && <Mail size={14} className="text-shizora-gold/70" />}
-                  
+                  {detail.shop_detail_name?.toLowerCase() === "address" && (
+                    <MapPin size={14} className="text-shizora-gold/70" />
+                  )}
+                  {detail.shop_detail_name?.toLowerCase() ===
+                    "phone number" && (
+                    <Phone size={14} className="text-shizora-gold/70" />
+                  )}
+                  {detail.shop_detail_name?.toLowerCase() === "mail" && (
+                    <Mail size={14} className="text-shizora-gold/70" />
+                  )}
+
                   <span className="text-xs tracking-wide group-hover:text-shizora-gold transition-colors duration-300">
                     {detail.shop_detail}
                   </span>
@@ -118,8 +134,8 @@ export default function Footer({ data }: { data: any }) {
                 <ul className="flex flex-col gap-4">
                   {list.footer_pages_name?.map((page: any, pIndex: number) => (
                     <li key={pIndex}>
-                      <Link 
-                        href={page.footer_page_url || "#"} 
+                      <Link
+                        href={page.footer_page_url || "#"}
                         className="text-xs text-[#e8ded0]/70 hover:text-shizora-gold transition-colors duration-300 tracking-wide inline-block relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-[1px] after:bg-shizora-gold hover:after:w-full after:transition-all after:duration-300"
                       >
                         {page.footer_page}
@@ -139,22 +155,27 @@ export default function Footer({ data }: { data: any }) {
             <p className="text-xs text-[#e8ded0]/60 tracking-wide mb-6">
               Join Shizora's VIPs for early access & rituals.
             </p>
-            
-            <form className="flex items-end gap-4 max-w-xs group" onSubmit={(e) => e.preventDefault()}>
+
+            <form
+              className="flex items-end gap-4 max-w-xs group"
+              onSubmit={(e) => e.preventDefault()}
+            >
               <div className="relative flex-grow">
-                <input 
-                  type="email" 
-                  placeholder="Email Address" 
+                <input
+                  type="email"
+                  placeholder="Email Address"
                   className="w-full bg-transparent border-b border-[#e8ded0]/20 pb-2 text-sm text-[#e8ded0] placeholder:text-[#e8ded0]/30 focus:outline-none focus:border-shizora-gold transition-colors duration-300"
                   required
                 />
               </div>
-              <button type="submit" className="border border-shizora-gold/50 text-shizora-gold text-[9px] uppercase tracking-[0.2em] px-6 py-2.5 hover:bg-shizora-gold hover:text-[#24211a] transition-all duration-300">
+              <button
+                type="submit"
+                className="border border-shizora-gold/50 text-shizora-gold text-[9px] uppercase tracking-[0.2em] px-6 py-2.5 hover:bg-shizora-gold hover:text-[#24211a] transition-all duration-300"
+              >
                 JOIN
               </button>
             </form>
           </div>
-
         </div>
 
         {/* Bottom Bar: Copyright & Socials */}
@@ -166,19 +187,21 @@ export default function Footer({ data }: { data: any }) {
           {/* Social Links - Removed hover effects as requested */}
           <div className="flex items-center gap-4">
             {socialMedia.map((social: any, index: number) => (
-              <Link 
-                key={index} 
+              <Link
+                key={index}
                 href={social.social_media_url || "#"}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-8 h-8 rounded-full bg-[#e8ded0]/5 flex items-center justify-center transition-all duration-300"
               >
-                {renderSocialIcon(social.social_media_image?.alt || social.social_media_image?.title)}
+                {renderSocialIcon(
+                  social.social_media_image?.alt ||
+                    social.social_media_image?.title,
+                )}
               </Link>
             ))}
           </div>
         </div>
-
       </div>
     </footer>
   );

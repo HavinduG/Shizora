@@ -289,6 +289,48 @@ export async function getHomePageData() {
   return mockPageData;
 }
 
+export async function getCollectionPageData() {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_URL}wp-json/wp/v2/pages?slug=collection-page`, {
+      next: { revalidate: 10 }
+    });
+    const data = await res.json();
+    if (data && data.length > 0) return data[0];
+    return null;
+  } catch (error) {
+    console.error("Error fetching collection page data:", error);
+    return null;
+  }
+}
+
+export async function getAboutPageData() {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_URL}wp-json/wp/v2/pages?slug=about-page`, {
+      next: { revalidate: 10 }
+    });
+    const data = await res.json();
+    if (data && data.length > 0) return data[0];
+    return null;
+  } catch (error) {
+    console.error("Error fetching about page data:", error);
+    return null;
+  }
+}
+
+export async function getRitualPageData() {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_URL}wp-json/wp/v2/pages?slug=ritual-page`, {
+      next: { revalidate: 10 }
+    });
+    const data = await res.json();
+    if (data && data.length > 0) return data[0];
+    return null;
+  } catch (error) {
+    console.error("Error fetching ritual page data:", error);
+    return null;
+  }
+}
+
 export async function getProducts() {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_WORDPRESS_URL || "http://shizora.local/";
@@ -335,5 +377,63 @@ export async function getProducts() {
       images: [{ src: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=500&q=80" }]
     }
   ];
+}
+
+export async function getProduct(id: string) {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_WORDPRESS_URL || "http://shizora.local/";
+    
+    // Fetch single product from WooCommerce Store API
+    const res = await fetch(`${baseUrl}wp-json/wc/store/products/${id}`, {
+      next: { revalidate: 10 }
+    });
+    
+    if (res.ok) {
+      const data = await res.json();
+      if (data) {
+        return data;
+      }
+    }
+  } catch (error) {
+    console.error(`Failed to fetch dynamic product with id ${id} from WooCommerce, using mock data:`, error);
+  }
+
+  // Fallback mock logic
+  const allMockProducts = [
+    {
+      id: 1,
+      name: "Crème de Puoro (Moisturizing Cream)",
+      prices: { price: "8000", currency_symbol: "د.إ", currency_minor_unit: 2 },
+      images: [{ src: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=500&q=80" }],
+      short_description: "<p>A rich, restorative moisturizing cream crafted to deeply hydrate and illuminate your skin with natural botanical extracts.</p>",
+      description: "<p>Experience the ultimate in hydration with Crème de Puoro. Formulated with rare botanicals and our signature gold-infused water, this cream absorbs seamlessly into the skin to provide lasting moisture and a luminous finish. Designed to support the skin's natural barrier and lock in hydration.</p>"
+    },
+    {
+      id: 2,
+      name: "Active Veil (Moisturizing Cream)",
+      prices: { price: "6000", currency_symbol: "د.إ", currency_minor_unit: 2 },
+      images: [{ src: "https://images.unsplash.com/photo-1615397323214-5b4d66213765?w=500&q=80" }],
+      short_description: "<p>A lightweight veil of hydration that acts as a protective shield against environmental stressors.</p>",
+      description: "<p>Active Veil provides a delicate yet powerful layer of moisture. Perfect for daily wear, it protects the skin from pollutants while maintaining a soft, supple texture. The lightweight formula melts upon contact, ensuring a flawless canvas for makeup or a natural glow.</p>"
+    },
+    {
+      id: 3,
+      name: "AZRUN ZERO Silky Lotion",
+      prices: { price: "5000", currency_symbol: "د.إ", currency_minor_unit: 2 },
+      images: [{ src: "https://images.unsplash.com/photo-1599305090598-fe179d501227?w=500&q=80" }],
+      short_description: "<p>A fast-absorbing, silky lotion designed to refresh and balance your skin tone.</p>",
+      description: "<p>AZRUN ZERO Silky Lotion offers an unparalleled sensory experience. Its unique, liquid-silk texture glides over the skin, delivering an immediate surge of hydration. It works to balance the skin's pH and refine texture, leaving behind a smooth, radiant complexion.</p>"
+    },
+    {
+      id: 4,
+      name: "Night Repair Cream",
+      prices: { price: "13500", currency_symbol: "د.إ", currency_minor_unit: 2 },
+      images: [{ src: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=500&q=80" }],
+      short_description: "<p>An intensive overnight treatment that works while you sleep to repair and rejuvenate.</p>",
+      description: "<p>Wake up to renewed skin with our Night Repair Cream. This potent formula leverages the body's natural nighttime repair process. Infused with concentrated antioxidants and deep-penetrating moisturizers, it targets fine lines and fatigue, restoring a youthful bounce by morning.</p>"
+    }
+  ];
+
+  return allMockProducts.find((p) => p.id.toString() === id) || null;
 }
 

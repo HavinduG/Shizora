@@ -121,28 +121,33 @@ export default function AboutSection({ data }: { data: any }) {
   };
 
   return (
-    <section ref={sectionRef} className="relative bg-[#e8ded0] py-16 lg:py-20 px-6 lg:px-12 w-full overflow-hidden">
+    <section
+      ref={sectionRef}
+      className="relative bg-[#e8ded0] py-16 lg:py-20 px-6 lg:px-12 w-full overflow-hidden"
+    >
       <div className="container mx-auto max-w-[1400px]">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-          
           {/* Left Column: Image with 3D overlay and Parallax */}
           <div className="flex justify-center lg:justify-end">
-            <motion.div 
+            <motion.div
               className="relative w-full max-w-md aspect-[4/5] overflow-hidden shadow-2xl"
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
             >
-              <motion.img 
-                src={data.about_image?.url || "https://images.unsplash.com/photo-1596755389378-c31d21fd1273?q=80&w=1000"} 
+              <motion.img
+                src={
+                  data.about_image?.url ||
+                  "https://images.unsplash.com/photo-1596755389378-c31d21fd1273?q=80&w=1000"
+                }
                 alt={data.about_image?.alt || "About Shizora"}
                 className="w-full h-[120%] object-cover absolute top-[-10%] left-0"
                 style={{ y: imageY }}
               />
               {/* 3D Magic Dust Overlay */}
-              <canvas 
-                ref={canvasRef} 
+              <canvas
+                ref={canvasRef}
                 className="absolute inset-0 z-10 pointer-events-none mix-blend-screen"
               />
               {/* Subtle inner shadow/vignette */}
