@@ -8,7 +8,7 @@ export default function NewsletterSection({ data }: { data?: any }) {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // We will pull these from ACF if available in the future, 
+  // We will pull these from ACF if available in the future,
   // otherwise fallback to the exact text from the reference image.
   const title = data?.newsletter_title || "Letters of Light";
   const description =

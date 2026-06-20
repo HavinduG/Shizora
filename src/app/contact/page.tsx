@@ -22,7 +22,7 @@ export default async function ContactPage() {
       <ContactHero data={acf} />
 
       {/* Contact Form and Details */}
-      <ContactSupport data={acf} />
+      <ContactSupport data={homeData?.acf} />
 
       {/* Corporate and Wholesale */}
       <ContactWholesale data={acf} />

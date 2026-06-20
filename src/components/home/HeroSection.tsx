@@ -192,7 +192,7 @@ export default function HeroSection({ data }: { data: any }) {
           className="flex flex-col sm:flex-row gap-6 sm:gap-8 w-full sm:w-auto"
         >
           <Link
-            href={heroData.hero_button_1_url || "#"}
+            href={heroData.hero_button_1_url || "/collections"}
             className="group relative px-8 py-4 bg-shizora-gold text-shizora-dark text-xs uppercase tracking-[0.2em] font-semibold overflow-hidden transition-all hover:shadow-[0_0_20px_rgba(203,168,99,0.4)]"
           >
             <span className="relative z-10 transition-colors group-hover:text-white">
@@ -203,7 +203,7 @@ export default function HeroSection({ data }: { data: any }) {
           </Link>
 
           <Link
-            href={heroData.hero_button_2_url || "#"}
+            href={heroData.hero_button_2_url || "/about"}
             className="group relative px-8 py-4 bg-transparent text-white text-xs uppercase tracking-[0.2em] font-semibold overflow-hidden transition-all"
           >
             <span className="relative z-10 transition-colors group-hover:text-shizora-dark">

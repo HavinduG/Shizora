@@ -61,34 +61,57 @@ export default function RitualSection({
     <section className="relative bg-[#e8ded0] py-16 lg:py-20 px-6 lg:px-12 w-full overflow-hidden">
       <div className="container mx-auto max-w-[1400px]" ref={containerRef}>
         {/* Header Section */}
-        <div className="max-w-2xl mb-12">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-12">
+          <div className="max-w-2xl">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.8 }}
+            >
+              <span className="text-[9px] uppercase tracking-[0.3em] text-shizora-gold font-medium mb-4 block">
+                {title1}
+              </span>
+            </motion.div>
+
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="font-heading text-4xl md:text-5xl text-shizora-dark mb-4 leading-[1.1] tracking-wide"
+            >
+              {formatTitle(title2)}
+            </motion.h2>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="text-xs md:text-sm text-shizora-dark/70 font-sans tracking-wide leading-relaxed"
+            >
+              {description}
+            </motion.p>
+          </div>
+
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.8 }}
+            initial={{ opacity: 0, x: 20 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
           >
-            <span className="text-[9px] uppercase tracking-[0.3em] text-shizora-gold font-medium mb-4 block">
-              {title1}
-            </span>
+            <div className="hidden lg:flex items-center gap-6">
+              <span className="text-shizora-dark/60 text-[10px] uppercase tracking-[0.2em] font-bold">
+                EXPLORE ALL RITUALS
+              </span>
+              <Link
+                href="/rituals"
+                className="w-12 h-12 rounded-full border border-shizora-gold/30 flex items-center justify-center text-shizora-dark hover:bg-shizora-dark hover:text-white hover:border-shizora-dark transition-all duration-500 group cursor-pointer"
+              >
+                <ArrowRight
+                  size={18}
+                  className="transform group-hover:translate-x-1 transition-transform"
+                />
+              </Link>
+            </div>
           </motion.div>
-
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="font-heading text-4xl md:text-5xl text-shizora-dark mb-4 leading-[1.1] tracking-wide"
-          >
-            {formatTitle(title2)}
-          </motion.h2>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-xs md:text-sm text-shizora-dark/70 font-sans tracking-wide leading-relaxed"
-          >
-            {description}
-          </motion.p>
         </div>
 
         {/* Bento Box Grid */}
@@ -105,7 +128,7 @@ export default function RitualSection({
               className="lg:col-span-7 aspect-[4/3] lg:aspect-auto lg:h-[450px]"
             >
               <Link
-                href={mainRitual.link || "#"}
+                href={`/rituals/${mainRitual.slug}`}
                 className="relative block w-full h-full overflow-hidden group rounded-sm shadow-[0_10px_40px_-10px_rgba(0,0,0,0.15)] hover:shadow-[0_20px_50px_-10px_rgba(203,168,99,0.2)] transition-all duration-700"
               >
                 {/* Image with smooth zoom on hover */}
@@ -155,7 +178,7 @@ export default function RitualSection({
                   className="flex-1 min-h-[180px] lg:min-h-0"
                 >
                   <Link
-                    href={ritual.link || "#"}
+                    href={`/rituals/${ritual.slug}`}
                     className="relative block w-full h-full overflow-hidden group rounded-sm shadow-[0_10px_40px_-10px_rgba(0,0,0,0.15)] hover:shadow-[0_20px_50px_-10px_rgba(203,168,99,0.2)] transition-all duration-700"
                   >
                     <img
@@ -174,15 +197,17 @@ export default function RitualSection({
 
                     <div className="absolute bottom-0 left-0 w-full p-8 md:p-10 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-700 ease-out z-30">
                       <h3 className="text-xl md:text-2xl font-heading text-white mb-5 drop-shadow-2xl tracking-wide">
-                        {ritual.title?.rendered}
+                        {ritual.acf?.blog_title || `Ritual ${index + 2}`}
                       </h3>
-                      <span className="inline-flex items-center gap-3 text-[10px] uppercase tracking-[0.3em] text-white hover:text-shizora-gold transition-colors duration-500 font-medium relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-0 after:h-[1px] after:bg-shizora-gold group-hover:after:w-full after:transition-all after:duration-500">
-                        DISCOVER{" "}
+
+                      {/* "DISCOVER" Link */}
+                      <div className="flex items-center gap-2 text-[9px] uppercase tracking-[0.2em] text-white/90 group-hover:text-shizora-gold transition-colors font-bold mt-2">
+                        DISCOVER
                         <ArrowRight
-                          size={14}
-                          className="group-hover:translate-x-3 transition-transform duration-500"
+                          size={12}
+                          className="transform group-hover:translate-x-1 transition-transform"
                         />
-                      </span>
+                      </div>
                     </div>
                   </Link>
                 </motion.div>

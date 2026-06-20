@@ -38,14 +38,13 @@ export default function ContactWholesale({ data }: { data: any }) {
 
           {/* Right: Content Container */}
           <div className="w-full md:w-1/2 p-10 md:p-16 flex flex-col justify-center bg-[#FDFCFB] relative overflow-hidden">
-            
             {/* Subtle glow effect on hover */}
             <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-shizora-gold/10 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
 
             <h2 className="font-heading text-3xl lg:text-4xl text-shizora-dark mb-6 relative z-10">
               {title1}
             </h2>
-            
+
             <p className="text-shizora-dark/70 text-sm md:text-base font-light leading-relaxed mb-10 relative z-10">
               {title2}
             </p>

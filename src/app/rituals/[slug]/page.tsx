@@ -2,8 +2,7 @@ import { getRitualBySlug, getHomePageData } from "@/lib/data";
 import Header from "@/components/layout/Header";
 import TopLayer from "@/components/layout/TopLayer";
 import { notFound } from "next/navigation";
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import RitualBackButton from "./RitualBackButton";
 
 export default async function RitualDetailPage({
   params,
@@ -32,17 +31,8 @@ export default async function RitualDetailPage({
 
       <article className="pt-[120px] lg:pt-[180px] pb-32">
         <div className="container mx-auto px-6 lg:px-12 max-w-[1000px]">
-          {/* Back Button */}
-          <Link
-            href="/rituals"
-            className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-shizora-gold font-bold hover:text-shizora-dark transition-colors duration-300 mb-12 group"
-          >
-            <ArrowLeft
-              size={14}
-              className="transform group-hover:-translate-x-1 transition-transform"
-            />
-            Back to Journal
-          </Link>
+          {/* Dynamic Back Button Component */}
+          <RitualBackButton />
 
           {/* Article Header */}
           <div className="mb-16 text-center">

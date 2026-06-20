@@ -24,7 +24,7 @@ export default async function RitualsPage() {
       <TopLayer data={homeData.acf?.top_layer_} theme="dark" />
       <Header data={homeData.acf} theme="dark" />
 
-      {/* Ritual Hero Section */}
+      {/* Hero Section */}
       <section className="relative w-full h-[60vh] min-h-[500px] flex flex-col items-center justify-center overflow-hidden pt-[80px]">
         {/* Background Image with Gradient Overlay */}
         <div className="absolute inset-0 z-0">

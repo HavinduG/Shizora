@@ -198,7 +198,7 @@ export default function AboutSection({ data }: { data: any }) {
               transition={{ duration: 0.8, delay: 0.5 }}
             >
               <Link
-                href={data.about_button_url || "#"}
+                href={data.about_button_url || "/about"}
                 className="inline-block px-8 py-3.5 border border-shizora-gold/50 text-shizora-dark text-[9px] uppercase tracking-[0.2em] font-medium hover:bg-shizora-gold hover:border-shizora-gold hover:text-white transition-all duration-500 hover:shadow-[0_0_20px_rgba(203,168,99,0.3)] relative overflow-hidden group"
               >
                 <span className="relative z-10">
