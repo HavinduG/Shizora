@@ -1,10 +1,13 @@
-import { getRitualPageData, getHomePageData } from "@/lib/data";
+import { getRitualPageData, getHomePageData, getRituals } from "@/lib/data";
 import Header from "@/components/layout/Header";
 import TopLayer from "@/components/layout/TopLayer";
+import RitualsList from "@/components/rituals/RitualsList";
+import NewsletterSection from "@/components/rituals/NewsletterSection";
 
 export default async function RitualsPage() {
   const pageData = await getRitualPageData();
   const homeData = await getHomePageData();
+  const rituals = await getRituals();
 
   // Extract ACF data safely
   const acf = pageData?.acf || {};
@@ -49,8 +52,11 @@ export default async function RitualsPage() {
         </div>
       </section>
 
-      {/* Placeholder for future ritual content */}
-      <div className="pb-32"></div>
+      {/* Rituals List Section */}
+      <RitualsList rituals={rituals} />
+
+      {/* Newsletter Section */}
+      <NewsletterSection data={acf} />
     </main>
   );
 }

@@ -254,6 +254,25 @@ export async function getRituals() {
   }
 }
 
+export async function getRitualBySlug(slug: string) {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_URL}wp-json/wp/v2/blog?slug=${slug}&_embed`, {
+      next: { revalidate: 10 }
+    });
+    if (res.ok) {
+      const data = await res.json();
+      if (data && data.length > 0) return data[0];
+    }
+  } catch (error) {
+    console.error(`Failed to fetch ritual ${slug} from WordPress, using fallback:`, error);
+  }
+
+  // Fallback to mock data matching
+  const allRituals = await getRituals();
+  const found = allRituals.find((r: any) => r.slug === slug);
+  return found || null;
+}
+
 export async function getHomePageData() {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_WORDPRESS_URL || "http://shizora.local/";
@@ -327,6 +346,20 @@ export async function getRitualPageData() {
     return null;
   } catch (error) {
     console.error("Error fetching ritual page data:", error);
+    return null;
+  }
+}
+
+export async function getContactPageData() {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_URL}wp-json/wp/v2/pages?slug=contact-page`, {
+      next: { revalidate: 10 }
+    });
+    const data = await res.json();
+    if (data && data.length > 0) return data[0];
+    return null;
+  } catch (error) {
+    console.error("Error fetching contact page data:", error);
     return null;
   }
 }
