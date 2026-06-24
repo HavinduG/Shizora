@@ -7,10 +7,11 @@ import {
   useMotionValueEvent,
   AnimatePresence,
 } from "framer-motion";
-import { User, ShoppingBag, Menu, X } from "lucide-react";
+import { User, ShoppingBag, Menu, X, LogOut } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCart } from "@/lib/cart-context";
+import { useSession, signOut } from "next-auth/react";
 
 export default function Header({
   data,
@@ -24,6 +25,7 @@ export default function Header({
   const { scrollY } = useScroll();
   const { itemCount, setIsCartOpen } = useCart();
   const pathname = usePathname();
+  const { data: session } = useSession();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     setIsScrolled(latest > 34); // Adjust based on TopLayer height
@@ -93,9 +95,32 @@ export default function Header({
         <div
           className={`flex-1 flex justify-end space-x-5 md:space-x-6 items-center ${isDarkTheme ? "text-shizora-dark/90" : "text-white/80"}`}
         >
-          <button className="hover:text-shizora-gold transition-colors duration-300 hidden md:block">
-            <User size={18} strokeWidth={1.5} />
-          </button>
+          {session ? (
+            <div className="hidden md:flex items-center space-x-4">
+              <Link
+                href="/dashboard"
+                className="text-[10px] uppercase tracking-widest truncate max-w-[100px] hover:text-shizora-gold transition-colors duration-300"
+              >
+                {(session.user as any)?.firstName ||
+                  session.user?.name ||
+                  "Account"}
+              </Link>
+              <button
+                onClick={() => signOut()}
+                className="hover:text-shizora-gold transition-colors duration-300"
+                title="Sign Out"
+              >
+                <LogOut size={16} strokeWidth={1.5} />
+              </button>
+            </div>
+          ) : (
+            <Link
+              href="/login"
+              className="hover:text-shizora-gold transition-colors duration-300 hidden md:block"
+            >
+              <User size={18} strokeWidth={1.5} />
+            </Link>
+          )}
           <button
             onClick={() => setIsCartOpen(true)}
             className="hover:text-shizora-gold transition-colors duration-300 relative group"
@@ -193,14 +218,48 @@ export default function Header({
                   }}
                   className="mt-6 pt-8 border-t border-shizora-gold/10 flex flex-col gap-6"
                 >
+                  {session ? (
+                    <>
+                      <Link
+                        href="/dashboard"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="text-xs uppercase tracking-[0.25em] text-shizora-dark/50 hover:text-shizora-gold transition-colors duration-300"
+                      >
+                        Account (
+                        {(session.user as any)?.firstName || session.user?.name}
+                        )
+                      </Link>
+                      <button
+                        onClick={() => {
+                          setIsMobileMenuOpen(false);
+                          signOut();
+                        }}
+                        className="text-xs uppercase tracking-[0.25em] text-left text-shizora-dark/50 hover:text-shizora-gold transition-colors duration-300"
+                      >
+                        Sign Out
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <Link
+                        href="/login"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="text-xs uppercase tracking-[0.25em] text-shizora-dark/50 hover:text-shizora-gold transition-colors duration-300"
+                      >
+                        Sign In
+                      </Link>
+                      <Link
+                        href="/register"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="text-xs uppercase tracking-[0.25em] text-shizora-dark/50 hover:text-shizora-gold transition-colors duration-300"
+                      >
+                        Create Account
+                      </Link>
+                    </>
+                  )}
                   <Link
                     href="#"
-                    className="text-xs uppercase tracking-[0.25em] text-shizora-dark/50 hover:text-shizora-gold transition-colors duration-300"
-                  >
-                    Account
-                  </Link>
-                  <Link
-                    href="#"
+                    onClick={() => setIsMobileMenuOpen(false)}
                     className="text-xs uppercase tracking-[0.25em] text-shizora-dark/50 hover:text-shizora-gold transition-colors duration-300"
                   >
                     Support

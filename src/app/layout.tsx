@@ -5,6 +5,7 @@ import Footer from "@/components/layout/Footer";
 import { getHomePageData } from "@/lib/data";
 import { CartProvider } from "@/lib/cart-context";
 import CartSidebar from "@/components/shop/CartSidebar";
+import AuthProvider from "@/components/auth/AuthProvider";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -39,11 +40,13 @@ export default async function RootLayout({
         suppressHydrationWarning
         className="min-h-full flex flex-col font-sans bg-black text-white"
       >
-        <CartProvider>
-          {children}
-          <Footer data={data.acf} />
-          <CartSidebar />
-        </CartProvider>
+        <AuthProvider>
+          <CartProvider>
+            {children}
+            <Footer data={data.acf} />
+            <CartSidebar />
+          </CartProvider>
+        </AuthProvider>
       </body>
     </html>
   );
