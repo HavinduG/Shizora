@@ -21,6 +21,9 @@ export const metadata: Metadata = {
   title: "Shizora | Botanical Luxury, Delivered",
   description:
     "Redefining beauty with nature. Discover a new standard of luxury skincare.",
+  icons: {
+    icon: "https://web.shizora.com/wp-content/uploads/2026/06/Gemini_Generated_Image_pf22xnpf22xnpf22.png",
+  },
 };
 
 export default async function RootLayout({
