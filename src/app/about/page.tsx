@@ -5,6 +5,7 @@ import AboutSection from "@/components/about/AboutSection";
 import AboutSectionTwo from "@/components/about/AboutSectionTwo";
 import AboutSectionThree from "@/components/about/AboutSectionThree";
 import AboutRitualSection from "@/components/about/AboutRitualSection";
+import AboutHero from "@/components/about/AboutHero";
 
 export default async function AboutPage() {
   const pageData = await getAboutPageData();
@@ -29,32 +30,13 @@ export default async function AboutPage() {
       <Header data={homeData.acf} theme="dark" />
 
       {/* About Hero Section */}
-      <section className="relative w-full h-[60vh] min-h-[500px] flex flex-col items-center justify-center overflow-hidden pt-[80px]">
-        {/* Background Image with Gradient Overlay similar to Collections */}
-        <div className="absolute inset-0 z-0">
-          <img
-            src={bgImage}
-            alt={acf.about_background?.alt || "About Shizora"}
-            className="w-full h-full object-cover opacity-90"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-shizora-light/40 via-shizora-light/50 to-shizora-light" />
-        </div>
-
-        {/* Hero Content matching the provided design */}
-        <div className="container mx-auto px-6 relative z-10 flex flex-col items-center text-center max-w-4xl mt-12">
-          <span className="text-[10px] uppercase tracking-[0.3em] text-shizora-gold font-medium mb-6 block">
-            {title1}
-          </span>
-
-          <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl text-shizora-dark mb-8 leading-[1.1] max-w-3xl">
-            {title2}
-          </h1>
-
-          <p className="text-sm md:text-base text-shizora-dark/70 tracking-wide font-light max-w-2xl leading-relaxed mx-auto">
-            {description}
-          </p>
-        </div>
-      </section>
+      <AboutHero
+        bgImage={bgImage}
+        title1={title1}
+        title2={title2}
+        description={description}
+        altText={acf.about_background?.alt || "About Shizora"}
+      />
 
       {/* Heritage Description Section (About 2) */}
       <AboutSectionTwo data={acf} />

@@ -3,6 +3,7 @@ import Header from "@/components/layout/Header";
 import TopLayer from "@/components/layout/TopLayer";
 import RitualsList from "@/components/rituals/RitualsList";
 import NewsletterSection from "@/components/rituals/NewsletterSection";
+import RitualsHero from "@/components/rituals/RitualsHero";
 
 export default async function RitualsPage() {
   const pageData = await getRitualPageData();
@@ -25,32 +26,12 @@ export default async function RitualsPage() {
       <Header data={homeData.acf} theme="dark" />
 
       {/* Hero Section */}
-      <section className="relative w-full h-[60vh] min-h-[500px] flex flex-col items-center justify-center overflow-hidden pt-[80px]">
-        {/* Background Image with Gradient Overlay */}
-        <div className="absolute inset-0 z-0">
-          <img
-            src={bgImage}
-            alt={acf.ritual_background?.alt || "Rituals"}
-            className="w-full h-full object-cover opacity-90"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-shizora-light/40 via-shizora-light/50 to-shizora-light" />
-        </div>
-
-        {/* Hero Content */}
-        <div className="container mx-auto px-6 relative z-10 flex flex-col items-center text-center max-w-4xl mt-12">
-          <span className="text-[10px] uppercase tracking-[0.3em] text-shizora-gold font-medium mb-6 block">
-            RITUALS
-          </span>
-
-          <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl text-shizora-dark mb-8 leading-[1.1] max-w-3xl">
-            {title1}
-          </h1>
-
-          <p className="text-sm md:text-base text-shizora-dark/70 tracking-wide font-light max-w-2xl leading-relaxed mx-auto">
-            {title2}
-          </p>
-        </div>
-      </section>
+      <RitualsHero
+        bgImage={bgImage}
+        title1={title1}
+        title2={title2}
+        altText={acf.ritual_background?.alt || "Rituals"}
+      />
 
       {/* Rituals List Section */}
       <RitualsList rituals={rituals} />
