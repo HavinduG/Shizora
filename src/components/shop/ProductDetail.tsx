@@ -146,7 +146,7 @@ export default function ProductDetail({ product }: { product: any }) {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: "easeOut" }}
-          className="flex flex-col gap-6 sticky top-32"
+          className="flex flex-col gap-6 relative lg:sticky lg:top-32"
         >
           <motion.div
             onMouseMove={handleMouseMove}
