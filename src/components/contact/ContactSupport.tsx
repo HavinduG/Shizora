@@ -3,10 +3,19 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowRight, Phone, Mail, MapPin } from "lucide-react";
+import { ArrowRight, Phone, Mail, MapPin, Loader2 } from "lucide-react";
 
 export default function ContactSupport({ data }: { data: any }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<
+    "idle" | "success" | "error"
+  >("idle");
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
 
   // Extract shop details from WordPress data or use fallbacks
   const shopDetails = data?.shop_details || [
@@ -33,15 +42,47 @@ export default function ContactSupport({ data }: { data: any }) {
     return <MapPin className="w-5 h-5" strokeWidth={1.5} />;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      alert(
-        "Message sent successfully. Our concierge will contact you shortly.",
+    setSubmitStatus("idle");
+
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_WORDPRESS_API_URL}/wp-json/shizora/v1/leads`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        },
       );
-    }, 1500);
+
+      if (!response.ok) {
+        throw new Error("Failed to submit form");
+      }
+
+      setSubmitStatus("success");
+      setFormData({ name: "", email: "", subject: "", message: "" }); // Reset form
+      setTimeout(() => setSubmitStatus("idle"), 5000); // Clear success message after 5s
+    } catch (error) {
+      console.error("Error submitting lead:", error);
+      setSubmitStatus("error");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -68,6 +109,9 @@ export default function ContactSupport({ data }: { data: any }) {
                   </label>
                   <input
                     type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
                     required
                     placeholder="e.g. Eleanor Vance"
                     className="w-full bg-[#F5F4F0] border border-transparent focus:border-shizora-gold/30 rounded-lg px-5 py-4 text-sm text-shizora-dark placeholder:text-shizora-dark/40 outline-none transition-all duration-300"
@@ -79,6 +123,9 @@ export default function ContactSupport({ data }: { data: any }) {
                   </label>
                   <input
                     type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
                     required
                     placeholder="eleanor@example.com"
                     className="w-full bg-[#F5F4F0] border border-transparent focus:border-shizora-gold/30 rounded-lg px-5 py-4 text-sm text-shizora-dark placeholder:text-shizora-dark/40 outline-none transition-all duration-300"
@@ -91,7 +138,10 @@ export default function ContactSupport({ data }: { data: any }) {
                   Subject
                 </label>
                 <select
-                  defaultValue=""
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  required
                   className="w-full bg-[#F5F4F0] border border-transparent focus:border-shizora-gold/30 rounded-lg px-5 py-4 text-sm text-shizora-dark outline-none transition-all duration-300 appearance-none cursor-pointer"
                 >
                   <option value="" disabled>
@@ -109,6 +159,9 @@ export default function ContactSupport({ data }: { data: any }) {
                   Your Message
                 </label>
                 <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
                   required
                   rows={5}
                   placeholder="How may we assist you today?"
@@ -116,17 +169,39 @@ export default function ContactSupport({ data }: { data: any }) {
                 ></textarea>
               </div>
 
+              {submitStatus === "success" && (
+                <div className="p-4 bg-green-50 text-green-800 rounded-lg text-sm">
+                  Message sent successfully. Our concierge will contact you
+                  shortly.
+                </div>
+              )}
+              {submitStatus === "error" && (
+                <div className="p-4 bg-red-50 text-red-800 rounded-lg text-sm">
+                  There was an error sending your message. Please try again
+                  later.
+                </div>
+              )}
+
               <div className="flex justify-end pt-4">
                 <button
                   type="submit"
                   disabled={isSubmitting}
                   className="bg-[#0A1612] text-white px-8 py-4 rounded-lg text-sm font-medium tracking-wide flex items-center gap-3 hover:bg-shizora-gold transition-colors duration-300 disabled:opacity-70 group"
                 >
-                  {isSubmitting ? "Sending..." : "Send Message"}
-                  <ArrowRight
-                    size={16}
-                    className="transform group-hover:translate-x-1 transition-transform"
-                  />
+                  {isSubmitting ? (
+                    <>
+                      Sending...
+                      <Loader2 size={16} className="animate-spin" />
+                    </>
+                  ) : (
+                    <>
+                      Send Message
+                      <ArrowRight
+                        size={16}
+                        className="transform group-hover:translate-x-1 transition-transform"
+                      />
+                    </>
+                  )}
                 </button>
               </div>
             </form>
