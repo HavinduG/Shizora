@@ -59,19 +59,22 @@ export default function ContactSupport({ data }: { data: any }) {
     setSubmitStatus("idle");
 
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_WORDPRESS_API_URL}/wp-json/shizora/v1/leads`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
+      const baseUrl =
+        process.env.NEXT_PUBLIC_WORDPRESS_URL?.replace(/\/$/, "") || "";
+      const response = await fetch(`${baseUrl}/wp-json/shizora/v1/leads`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
+        body: JSON.stringify(formData),
+      });
 
       if (!response.ok) {
-        throw new Error("Failed to submit form");
+        const errorText = await response.text();
+        console.error("Server response:", errorText);
+        throw new Error(
+          `Failed to submit form: ${response.status} ${response.statusText}`,
+        );
       }
 
       setSubmitStatus("success");
