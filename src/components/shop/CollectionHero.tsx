@@ -61,8 +61,8 @@ export default function CollectionHero({ bgImage }: { bgImage: string }) {
             transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
             className="text-sm md:text-base text-shizora-dark/70 tracking-wide font-light max-w-md leading-relaxed"
           >
-            Formulated with rare organic extracts to illuminate and restore
-            your natural vitality.
+            Formulated with rare organic extracts to illuminate and restore your
+            natural vitality.
           </motion.p>
         </div>
       </div>
