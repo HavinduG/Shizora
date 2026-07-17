@@ -17,7 +17,7 @@ export default async function Home() {
       <TopLayer data={data.acf.top_layer_} />
       <Header data={data.acf} />
       <HeroSection data={data.acf.hero_section[0]} />
-      <ProductsSection products={products} />
+      <ProductsSection products={products} data={data.acf} />
       <AboutSection data={data.acf} />
       <FeedbackSection data={data.acf} />
       <RitualSection data={data.acf} rituals={rituals} />

@@ -90,7 +90,7 @@ export default function AboutSection({ data }: { data: any }) {
               onClick={() => setIsExpanded(!isExpanded)}
               className="mt-8 flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-shizora-gold font-bold hover:text-shizora-dark transition-colors duration-300 group self-start border-b border-transparent hover:border-shizora-dark pb-1"
             >
-              {isExpanded ? "Close Process" : "Discover the Process"}
+              {isExpanded ? "Close Process" : "Discover Silk Sericin"}
               <motion.span
                 animate={{ rotate: isExpanded ? -180 : 0 }}
                 transition={{ duration: 0.4 }}

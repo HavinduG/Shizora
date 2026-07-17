@@ -105,19 +105,40 @@ export default function AboutSection({ data }: { data: any }) {
     };
   }, []);
 
-  // Format the title to make "forest." italic and gold, matching the design exactly
+  // Format the title to make specific text italic and gold based on the content
   const formatTitle = (title: string) => {
     if (!title) return null;
-    const parts = title.split(/(forest\.)/i);
-    return parts.map((part, index) =>
-      part.toLowerCase() === "forest." ? (
-        <span key={index} className="italic text-shizora-gold font-light">
-          {part}
-        </span>
-      ) : (
-        <span key={index}>{part}</span>
-      ),
-    );
+
+    // First, check for the original "forest." logic
+    if (title.toLowerCase().includes("forest.")) {
+      const parts = title.split(/(forest\.)/i);
+      return parts.map((part, index) =>
+        part.toLowerCase() === "forest." ? (
+          <span key={index} className="italic text-shizora-gold font-light">
+            {part}
+          </span>
+        ) : (
+          <span key={index}>{part}</span>
+        ),
+      );
+    }
+
+    // Now check for the new "Japanese Beauty. Refined for Modern Rituals." logic
+    if (title.toLowerCase().includes("modern rituals.")) {
+      const parts = title.split(/(Modern Rituals\.)/i);
+      return parts.map((part, index) =>
+        part.toLowerCase() === "modern rituals." ? (
+          <span key={index} className="italic text-shizora-gold font-light">
+            {part}
+          </span>
+        ) : (
+          <span key={index}>{part}</span>
+        ),
+      );
+    }
+
+    // Default: just return the text
+    return <span>{title}</span>;
   };
 
   return (

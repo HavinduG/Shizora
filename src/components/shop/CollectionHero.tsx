@@ -30,39 +30,41 @@ export default function CollectionHero({ bgImage }: { bgImage: string }) {
           className="w-full h-full object-cover opacity-90"
         />
         {/* Soft luxury gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-shizora-light/90 via-shizora-light/60 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-shizora-light/40 via-shizora-light/50 to-shizora-light" />
       </motion.div>
 
       {/* Hero Content */}
-      <div className="container mx-auto max-w-[1400px] px-6 lg:px-12 relative z-10">
-        <div className="max-w-2xl">
+      <div className="container mx-auto max-w-[1400px] px-6 lg:px-12 relative z-10 flex flex-col items-center text-center mt-12">
+        <div className="max-w-3xl">
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-            className="text-[10px] uppercase tracking-[0.3em] text-shizora-gold font-medium mb-4 block"
+            className="text-[10px] md:text-xs uppercase tracking-[0.3em] text-shizora-gold font-medium mb-6 block"
           >
-            CURATED PURITY
+            CURATED JAPANESE SKINCARE
           </motion.span>
 
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-            className="font-heading text-4xl md:text-5xl lg:text-6xl text-shizora-dark mb-6 leading-tight"
+            className="font-heading text-4xl md:text-5xl lg:text-6xl text-shizora-dark mb-8 leading-[1.1] max-w-3xl mx-auto"
           >
-            The Botanical <br />
-            <span className="italic">Awakening</span> Collection
+            Discover the <br />
+            <span className="italic">Shizora </span> Japanese Skincare
+            Collection
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-            className="text-sm md:text-base text-shizora-dark/70 tracking-wide font-light max-w-md leading-relaxed"
+            className="text-sm md:text-base text-shizora-dark/70 tracking-wide font-light max-w-2xl mx-auto leading-relaxed"
           >
-            Formulated with rare organic extracts to illuminate and restore your
-            natural vitality.
+            Explore premium Japanese skincare for facial and intimate care,
+            featuring silk sericin moisturisers, lightweight hydration and
+            thoughtfully formulated everyday essentials for women in the UAE.
           </motion.p>
         </div>
       </div>

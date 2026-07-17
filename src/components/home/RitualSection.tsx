@@ -16,7 +16,7 @@ export default function RitualSection({
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
 
   const title1 = data.guide_title_1 || "GUIDED RITUALS";
-  const title2 = data.guide_title_2 || "Elevate Your Ritual";
+  const title2 = data.guide_title_2 || "Elevate Japanese Skincare Ritual";
   const description =
     data.guide_title_description ||
     "Transform your daily routine into a moment of mindful luxury with our guided skincare rituals";
@@ -25,12 +25,12 @@ export default function RitualSection({
   const mainRitual = rituals[0];
   const subRituals = rituals.slice(1, 3);
 
-  // Format the title to make "Your Ritual" gold and italic
+  // Format the title to make "Japanese Skincare Ritual" gold and italic
   const formatTitle = (title: string) => {
     if (!title) return null;
-    const parts = title.split(/(your ritual)/i);
+    const parts = title.split(/(Japanese Skincare Ritual)/i);
     return parts.map((part: string, index: number) =>
-      part.toLowerCase() === "your ritual" ? (
+      part.toLowerCase() === "japanese skincare ritual" ? (
         <span key={index} className="italic text-shizora-gold font-light">
           {part}
         </span>
@@ -77,7 +77,7 @@ export default function RitualSection({
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="font-heading text-4xl md:text-5xl text-shizora-dark mb-4 leading-[1.1] tracking-wide"
+              className="font-heading text-4xl md:text-5xl lg:text-6xl text-shizora-dark mb-4 leading-[1.1] tracking-wide"
             >
               {formatTitle(title2)}
             </motion.h2>

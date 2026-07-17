@@ -101,7 +101,7 @@ export default function ContactSupport({ data }: { data: any }) {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
             <h2 className="font-heading text-3xl text-shizora-dark mb-8 pb-6 border-b border-shizora-gold/10">
-              Send an Inquiry
+              Contact Shizora
             </h2>
 
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -116,7 +116,7 @@ export default function ContactSupport({ data }: { data: any }) {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    placeholder="e.g. Eleanor Vance"
+                    placeholder="Enter your full name"
                     className="w-full bg-[#F5F4F0] border border-transparent focus:border-shizora-gold/30 rounded-lg px-5 py-4 text-sm text-shizora-dark placeholder:text-shizora-dark/40 outline-none transition-all duration-300"
                   />
                 </div>
@@ -130,7 +130,7 @@ export default function ContactSupport({ data }: { data: any }) {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    placeholder="eleanor@example.com"
+                    placeholder="Enter your email address"
                     className="w-full bg-[#F5F4F0] border border-transparent focus:border-shizora-gold/30 rounded-lg px-5 py-4 text-sm text-shizora-dark placeholder:text-shizora-dark/40 outline-none transition-all duration-300"
                   />
                 </div>
@@ -167,7 +167,7 @@ export default function ContactSupport({ data }: { data: any }) {
                   onChange={handleChange}
                   required
                   rows={5}
-                  placeholder="How may we assist you today?"
+                  placeholder="Tell us how our care team can assist you."
                   className="w-full bg-[#F5F4F0] border border-transparent focus:border-shizora-gold/30 rounded-lg px-5 py-4 text-sm text-shizora-dark placeholder:text-shizora-dark/40 outline-none transition-all duration-300 resize-none"
                 ></textarea>
               </div>
@@ -198,7 +198,7 @@ export default function ContactSupport({ data }: { data: any }) {
                     </>
                   ) : (
                     <>
-                      Send Message
+                      Submit Enquiry
                       <ArrowRight
                         size={16}
                         className="transform group-hover:translate-x-1 transition-transform"
@@ -231,8 +231,9 @@ export default function ContactSupport({ data }: { data: any }) {
                 Direct Support
               </h3>
               <p className="text-shizora-dark/70 text-sm leading-relaxed mb-10 relative z-10 font-light">
-                For immediate assistance, our concierge is available Monday
-                through Friday, 9:00 AM to 6:00 PM.
+                For personalised skincare guidance or order assistance, our
+                customer care team is available Monday to Friday, from 9:00 AM
+                to 6:00 PM UAE time.
               </p>
 
               <div className="space-y-8 relative z-10">
@@ -245,9 +246,31 @@ export default function ContactSupport({ data }: { data: any }) {
                       <span className="text-[9px] uppercase tracking-[0.2em] font-bold text-shizora-gold block mb-1">
                         {item.shop_detail_name}
                       </span>
-                      <span className="text-shizora-dark text-sm">
-                        {item.shop_detail}
-                      </span>
+                      {item.shop_detail_name?.toLowerCase().includes("phone") ||
+                      item.shop_detail_name?.toLowerCase().includes("tele") ? (
+                        <a
+                          href={`tel:${item.shop_detail.replace(/[^0-9+]/g, "")}`}
+                          className="text-shizora-dark text-sm hover:text-shizora-gold transition-colors duration-300"
+                        >
+                          {item.shop_detail}
+                        </a>
+                      ) : item.shop_detail_name
+                          ?.toLowerCase()
+                          .includes("mail") ||
+                        item.shop_detail_name
+                          ?.toLowerCase()
+                          .includes("email") ? (
+                        <a
+                          href={`mailto:${item.shop_detail}`}
+                          className="text-shizora-dark text-sm hover:text-shizora-gold transition-colors duration-300"
+                        >
+                          {item.shop_detail}
+                        </a>
+                      ) : (
+                        <span className="text-shizora-dark text-sm">
+                          {item.shop_detail}
+                        </span>
+                      )}
                     </div>
                   </div>
                 ))}
@@ -266,13 +289,14 @@ export default function ContactSupport({ data }: { data: any }) {
                 ease: [0.16, 1, 0.3, 1],
               }}
             >
-              <Link href="#" className="flex items-center justify-between">
+              <Link href="/faqs" className="flex items-center justify-between">
                 <div>
                   <h4 className="font-bold text-shizora-dark mb-2">
                     Frequently Asked
                   </h4>
                   <p className="text-shizora-dark/70 text-sm font-light">
-                    Review our shipping, return, and product policies.
+                    Find helpful information about products, skincare guidance,
+                    delivery, returns and orders.
                   </p>
                 </div>
                 <div className="w-10 h-10 rounded-full border border-shizora-dark/10 flex items-center justify-center text-shizora-dark group-hover:bg-shizora-dark group-hover:text-white transition-all duration-300 flex-shrink-0 ml-4">

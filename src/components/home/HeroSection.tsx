@@ -147,19 +147,19 @@ export default function HeroSection({ data }: { data: any }) {
 
       {/* Content */}
       <motion.div
-        className="relative z-20 h-full flex flex-col items-center justify-center px-6 text-center max-w-4xl mx-auto"
+        className="relative z-20 h-full flex flex-col items-center justify-center px-6 text-center max-w-4xl mx-auto pt-12"
         style={{ opacity }}
       >
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.2 }}
-          className="mb-6 uppercase tracking-[0.3em] text-shizora-gold text-[10px] md:text-xs"
+          className="mb-8 uppercase tracking-[0.3em] text-shizora-gold text-[10px] md:text-xs"
         >
-          INTRODUCING SHIZORA
+          PREMIUM JAPANESE SKINCARE
         </motion.div>
 
-        <h2 className="font-heading text-5xl md:text-7xl lg:text-8xl text-white mb-8 leading-tight tracking-wide font-medium flex flex-wrap justify-center gap-x-4">
+        <h2 className="font-heading text-4xl md:text-6xl lg:text-7xl text-white mb-8 leading-tight tracking-wide font-medium flex flex-wrap justify-center gap-x-4">
           {titleWords.map((word: string, index: number) => (
             <motion.span
               key={index}
@@ -192,7 +192,7 @@ export default function HeroSection({ data }: { data: any }) {
           className="flex flex-col sm:flex-row gap-6 sm:gap-8 w-full sm:w-auto"
         >
           <Link
-            href={heroData.hero_button_1_url || "/collections"}
+            href={heroData.hero_button_1_url || "#"}
             className="group relative px-8 py-4 bg-shizora-gold text-shizora-dark text-xs uppercase tracking-[0.2em] font-semibold overflow-hidden transition-all hover:shadow-[0_0_20px_rgba(203,168,99,0.4)]"
           >
             <span className="relative z-10 transition-colors group-hover:text-white">
@@ -203,7 +203,7 @@ export default function HeroSection({ data }: { data: any }) {
           </Link>
 
           <Link
-            href={heroData.hero_button_2_url || "/about"}
+            href={heroData.hero_button_2_url || "#"}
             className="group relative px-8 py-4 bg-transparent text-white text-xs uppercase tracking-[0.2em] font-semibold overflow-hidden transition-all"
           >
             <span className="relative z-10 transition-colors group-hover:text-shizora-dark">

@@ -53,7 +53,7 @@ export default function ContactWholesale({ data }: { data: any }) {
               href="#"
               className="inline-flex items-center gap-2 text-shizora-gold font-bold text-sm lg:text-base tracking-wide group/link relative z-10 self-start"
             >
-              Partner with Shizora
+              BECOME A SHIZORA PARTNER
               <ArrowUpRight
                 size={18}
                 className="transform group-hover/link:translate-x-1 group-hover/link:-translate-y-1 transition-transform"

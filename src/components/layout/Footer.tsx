@@ -116,9 +116,27 @@ export default function Footer({ data }: { data: any }) {
                     <Mail size={14} className="text-shizora-gold/70" />
                   )}
 
-                  <span className="text-xs tracking-wide group-hover:text-shizora-gold transition-colors duration-300">
-                    {detail.shop_detail}
-                  </span>
+                  {detail.shop_detail_name?.toLowerCase().includes("phone") ? (
+                    <a
+                      href={`tel:${detail.shop_detail.replace(/[^0-9+]/g, "")}`}
+                      className="text-xs tracking-wide group-hover:text-shizora-gold transition-colors duration-300"
+                    >
+                      {detail.shop_detail}
+                    </a>
+                  ) : detail.shop_detail_name
+                      ?.toLowerCase()
+                      .includes("mail") ? (
+                    <a
+                      href={`mailto:${detail.shop_detail}`}
+                      className="text-xs tracking-wide group-hover:text-shizora-gold transition-colors duration-300"
+                    >
+                      {detail.shop_detail}
+                    </a>
+                  ) : (
+                    <span className="text-xs tracking-wide group-hover:text-shizora-gold transition-colors duration-300">
+                      {detail.shop_detail}
+                    </span>
+                  )}
                 </div>
               ))}
             </div>
@@ -132,16 +150,33 @@ export default function Footer({ data }: { data: any }) {
                   {list.footer_title}
                 </h4>
                 <ul className="flex flex-col gap-4">
-                  {list.footer_pages_name?.map((page: any, pIndex: number) => (
-                    <li key={pIndex}>
-                      <Link
-                        href={page.footer_page_url || "#"}
-                        className="text-xs text-[#e8ded0]/70 hover:text-shizora-gold transition-colors duration-300 tracking-wide inline-block relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-[1px] after:bg-shizora-gold hover:after:w-full after:transition-all after:duration-300"
-                      >
-                        {page.footer_page}
-                      </Link>
-                    </li>
-                  ))}
+                  {list.footer_pages_name?.map((page: any, pIndex: number) => {
+                    let href = page.footer_page_url || "#";
+                    // Map new WordPress names to existing Next.js routes if needed
+                    const text = page.footer_page?.toLowerCase();
+                    if (text === "shop" || href.includes("/shop"))
+                      href = "/collections";
+                    if (text === "our story" || href.includes("/our-story"))
+                      href = "/about";
+                    if (
+                      text === "skincare rituals" ||
+                      href.includes("/skincare-rituals")
+                    )
+                      href = "/rituals";
+                    if (text === "faqs" || href.includes("/faqs"))
+                      href = "/faqs";
+
+                    return (
+                      <li key={pIndex}>
+                        <Link
+                          href={href}
+                          className="text-xs text-[#e8ded0]/70 hover:text-shizora-gold transition-colors duration-300 tracking-wide inline-block relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-[1px] after:bg-shizora-gold hover:after:w-full after:transition-all after:duration-300"
+                        >
+                          {page.footer_page}
+                        </Link>
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             ))}
@@ -153,7 +188,8 @@ export default function Footer({ data }: { data: any }) {
               NEWSLETTER
             </span>
             <p className="text-xs text-[#e8ded0]/60 tracking-wide mb-6">
-              Join Shizora's VIPs for early access & rituals.
+              Join the Shizora Inner Circle for first access to new arrivals,
+              private offers and skincare rituals.
             </p>
 
             <form
@@ -181,7 +217,7 @@ export default function Footer({ data }: { data: any }) {
         {/* Bottom Bar: Copyright & Socials */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 pt-6 border-t border-[#e8ded0]/10">
           <p className="text-[9px] uppercase tracking-[0.2em] text-[#e8ded0]/40">
-            &copy; {currentYear} SHIZORA LUXURY SKINCARE. ALL RIGHTS RESERVED.
+            &copy; {currentYear} 2026 SHIZORA. ALL RIGHTS RESERVED
           </p>
 
           {/* Social Links - Removed hover effects as requested */}

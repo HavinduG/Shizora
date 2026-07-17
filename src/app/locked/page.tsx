@@ -13,7 +13,7 @@ export default function LockedPage() {
     if (password === "Admin@12345") {
       // Set access cookie and reload to let middleware clear the block
       document.cookie = "site_unlocked=true; path=/; max-age=86400";
-      window.location.href = "/"; 
+      window.location.href = "/";
     } else {
       setError(true);
       setPassword("");
@@ -41,7 +41,8 @@ export default function LockedPage() {
           Private Access
         </h1>
         <p className="text-shizora-dark/60 text-sm mb-10 font-light leading-relaxed">
-          The Shizora experience is currently locked for public visibility. Please enter your password to continue.
+          The Shizora experience is currently locked for public visibility.
+          Please enter your password to continue.
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -59,7 +60,7 @@ export default function LockedPage() {
               } focus:border-shizora-gold/30 rounded-lg px-5 py-4 text-center text-sm text-shizora-dark placeholder:text-shizora-dark/40 outline-none transition-all duration-300`}
             />
             {error && (
-              <motion.p 
+              <motion.p
                 initial={{ opacity: 0, y: -5 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="text-red-500 text-xs mt-3 font-medium"

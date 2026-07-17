@@ -5,7 +5,13 @@ import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import Link from "next/link";
 import * as THREE from "three";
 
-export default function ProductsSection({ products }: { products: any[] }) {
+export default function ProductsSection({
+  products,
+  data,
+}: {
+  products: any[];
+  data?: any;
+}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   // Subtle 3D background particles
@@ -255,10 +261,10 @@ export default function ProductsSection({ products }: { products: any[] }) {
             transition={{ duration: 1, ease: "easeOut" }}
           >
             <span className="text-[9px] uppercase tracking-[0.3em] text-shizora-gold font-medium mb-2 block">
-              The Collection
+              {data?.shop_section_title_1 || "The Collection"}
             </span>
             <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl text-shizora-dark font-medium">
-              The Latest Expressions
+              {data?.shop_section_title_2 || "The Latest Expressions"}
             </h2>
           </motion.div>
 
@@ -273,7 +279,7 @@ export default function ProductsSection({ products }: { products: any[] }) {
               href="/collections"
               className="text-[10px] uppercase tracking-[0.2em] text-shizora-gold hover:text-shizora-dark transition-colors duration-300 flex items-center gap-2 group font-medium"
             >
-              View All{" "}
+              Shop All{" "}
               <span className="transform transition-transform duration-300 group-hover:translate-x-2">
                 &rarr;
               </span>

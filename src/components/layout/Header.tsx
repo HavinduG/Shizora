@@ -16,9 +16,11 @@ import { useSession, signOut } from "next-auth/react";
 export default function Header({
   data,
   theme = "light",
+  forceSolid = false,
 }: {
   data?: any;
   theme?: "light" | "dark";
+  forceSolid?: boolean;
 }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -33,16 +35,16 @@ export default function Header({
 
   const menuItems = data?.header_menu || [];
 
-  const isDarkTheme = theme === "dark" && !isScrolled;
+  const isDarkTheme = theme === "dark" && !isScrolled && !forceSolid;
 
   return (
     <motion.header
       className={`w-full z-40 transition-all duration-300 ease-in-out ${
-        isScrolled
+        isScrolled || forceSolid
           ? "fixed top-0 bg-shizora-dark/90 backdrop-blur-md py-4 shadow-md"
           : "absolute top-8.5 bg-transparent py-6"
       }`}
-      initial={{ y: -100 }}
+      initial={forceSolid ? { y: 0 } : { y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
@@ -63,10 +65,13 @@ export default function Header({
         {/* Navigation */}
         <nav className="hidden md:flex flex-1 justify-center space-x-8">
           {menuItems.map((item: any, index: number) => {
-            const href =
-              item.menu_text?.toLowerCase() === "home"
-                ? "/"
-                : `/${item.menu_text?.toLowerCase()}`;
+            let href = "/";
+            const text = item.menu_text?.toLowerCase();
+            if (text === "home") href = "/";
+            else if (text === "shop") href = "/collections";
+            else if (text === "our story") href = "/about";
+            else href = `/${text}`;
+
             const isActive =
               pathname === href || (href !== "/" && pathname?.startsWith(href));
 
@@ -173,10 +178,13 @@ export default function Header({
               {/* Mobile Menu Links */}
               <nav className="flex flex-col py-10 px-10 gap-8 relative z-10">
                 {menuItems.map((item: any, index: number) => {
-                  const href =
-                    item.menu_text?.toLowerCase() === "home"
-                      ? "/"
-                      : `/${item.menu_text?.toLowerCase()}`;
+                  let href = "/";
+                  const text = item.menu_text?.toLowerCase();
+                  if (text === "home") href = "/";
+                  else if (text === "shop") href = "/collections";
+                  else if (text === "our story") href = "/about";
+                  else href = `/${text}`;
+
                   const isActive =
                     pathname === href ||
                     (href !== "/" && pathname?.startsWith(href));

@@ -119,15 +119,6 @@ export default function ProductDetail({ product }: { product: any }) {
     setActiveAccordion(activeAccordion === id ? null : id);
   };
 
-  const keyIngredients =
-    product.attributes?.find(
-      (attr: any) => attr.name.toLowerCase() === "key ingredients",
-    )?.terms?.[0]?.name ||
-    product.attributes?.find(
-      (attr: any) => attr.name.toLowerCase() === "key ingredients",
-    )?.options?.[0] ||
-    "<p>Formulated with our proprietary blend of forest-foraged botanicals, rare golden algae extract, and molecular-weight hyaluronic acid for deep penetration and lasting hydration. 100% vegan, cruelty-free, and formulated without parabens, sulfates, or synthetic fragrances.</p>";
-
   return (
     <div className="flex flex-col w-full">
       <button
@@ -254,29 +245,40 @@ export default function ProductDetail({ product }: { product: any }) {
           <div className="flex flex-col border-t border-shizora-gold/20">
             {product.description && (
               <AccordionItem
-                title="The Ritual & Details"
+                title="Product Details"
                 content={product.description}
                 isOpen={activeAccordion === "description"}
                 onClick={() => toggleAccordion("description")}
               />
             )}
-            <AccordionItem
-              title="Key Ingredients"
-              content={
-                typeof keyIngredients === "string" &&
-                keyIngredients.startsWith("<")
-                  ? keyIngredients
-                  : `<p>${keyIngredients}</p>`
+
+            {product.attributes?.map((attr: any, idx: number) => {
+              const attrName = attr.name;
+              const attrId = `attr-${idx}`;
+
+              let attrValue = "";
+              if (attr.terms && attr.terms.length > 0) {
+                attrValue = attr.terms.map((t: any) => t.name).join("<br/>");
+              } else if (attr.options && attr.options.length > 0) {
+                attrValue = attr.options.join("<br/>");
+              } else {
+                return null;
               }
-              isOpen={activeAccordion === "ingredients"}
-              onClick={() => toggleAccordion("ingredients")}
-            />
-            <AccordionItem
-              title="Shipping & Returns"
-              content="<p>Complimentary shipping on all orders over $50. We offer a 30-day return policy for unopened and unused items in their original packaging. Please contact our concierge for assistance with your return.</p>"
-              isOpen={activeAccordion === "shipping"}
-              onClick={() => toggleAccordion("shipping")}
-            />
+
+              const content = attrValue.trim().startsWith("<")
+                ? attrValue
+                : `<p>${attrValue}</p>`;
+
+              return (
+                <AccordionItem
+                  key={attrId}
+                  title={attrName}
+                  content={content}
+                  isOpen={activeAccordion === attrId}
+                  onClick={() => toggleAccordion(attrId)}
+                />
+              );
+            })}
           </div>
         </motion.div>
       </div>
