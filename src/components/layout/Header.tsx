@@ -79,7 +79,7 @@ export default function Header({
               <Link
                 key={index}
                 href={href}
-                className={`text-[11px] uppercase tracking-[0.2em] transition-colors duration-300 relative group ${
+                className={`text-[12px] font-medium uppercase tracking-[0.2em] transition-colors duration-300 relative group ${
                   isActive
                     ? "text-shizora-gold"
                     : isDarkTheme

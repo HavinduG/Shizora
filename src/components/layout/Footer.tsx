@@ -77,12 +77,12 @@ export default function Footer({ data }: { data: any }) {
   };
 
   return (
-    <footer className="bg-[#24211a] text-[#e8ded0] pt-16 pb-6 px-6 lg:px-12 w-full border-t border-shizora-gold/10">
+    <footer className="bg-[#24211a] text-[#e8ded0] pt-12 pb-6 px-6 lg:px-12 w-full border-t border-shizora-gold/10">
       <div className="container mx-auto max-w-[1400px]">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-8">
           {/* Brand & Contact Column (Spans 4 cols) */}
-          <div className="lg:col-span-4 flex flex-col gap-8">
+          <div className="lg:col-span-4 flex flex-col gap-4">
             {/* Logo */}
             <Link
               href="/"
@@ -98,7 +98,7 @@ export default function Footer({ data }: { data: any }) {
             />
 
             {/* Shop Details / Contact Info */}
-            <div className="flex flex-col gap-3 mt-2">
+            <div className="flex flex-col gap-2 mt-1">
               {shopDetails.map((detail: any, index: number) => (
                 <div
                   key={index}
@@ -143,13 +143,13 @@ export default function Footer({ data }: { data: any }) {
           </div>
 
           {/* Links Columns (Spans 4 cols) */}
-          <div className="lg:col-span-4 grid grid-cols-2 gap-8">
+          <div className="lg:col-span-4 grid grid-cols-2 gap-x-8 gap-y-4">
             {footerLists.map((list: any, index: number) => (
-              <div key={index} className="flex flex-col gap-6">
+              <div key={index} className="flex flex-col gap-3">
                 <h4 className="text-[9px] uppercase tracking-[0.2em] text-shizora-gold font-medium">
                   {list.footer_title}
                 </h4>
-                <ul className="flex flex-col gap-4">
+                <ul className="flex flex-col gap-2">
                   {list.footer_pages_name?.map((page: any, pIndex: number) => {
                     let href = page.footer_page_url || "#";
                     // Map new WordPress names to existing Next.js routes if needed
@@ -215,7 +215,7 @@ export default function Footer({ data }: { data: any }) {
         </div>
 
         {/* Bottom Bar: Copyright & Socials */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6 pt-6 border-t border-[#e8ded0]/10">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-4 border-t border-[#e8ded0]/10">
           <p className="text-[9px] uppercase tracking-[0.2em] text-[#e8ded0]/40">
             &copy; {currentYear} 2026 SHIZORA. ALL RIGHTS RESERVED
           </p>

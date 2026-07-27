@@ -232,7 +232,7 @@ export default function ProductsSection({
 
               <div className="w-full mt-auto py-3 border border-shizora-gold/30 text-[9px] uppercase tracking-[0.2em] text-shizora-dark font-medium group-hover:bg-shizora-gold group-hover:border-shizora-gold group-hover:text-white transition-all duration-500 relative overflow-hidden flex items-center justify-center">
                 <span className="relative z-10 flex items-center gap-2">
-                  VIEW DETAILS
+                  VIEW PRODUCT
                 </span>
                 <div className="absolute inset-0 w-0 bg-shizora-gold transition-all duration-500 ease-out group-hover:w-full z-0" />
               </div>
@@ -287,9 +287,9 @@ export default function ProductsSection({
           </motion.div>
         </div>
 
-        {/* Products Grid - 3 Columns */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
-          {products.slice(0, 3).map((product, index) => (
+        {/* Products Grid - 4 Columns */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+          {products.slice(0, 4).map((product, index) => (
             <ProductCard
               key={product.id || index}
               product={product}
